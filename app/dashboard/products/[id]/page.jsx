@@ -1,4 +1,4 @@
-import styles from "@/app/ui/dashboard/users/singleUser/singleUser.module.css";
+import styles from "@/app/ui/dashboard/products/singleProduct/singleProduct.module.css";
 import Image from "next/image";
 
 const SingleUserPage = () => {
@@ -8,7 +8,7 @@ const SingleUserPage = () => {
           <div className={styles.imgContainer}>
             <Image src="/noavatar.png" alt="" fill />
           </div>
-          Beka Merebashvili
+          PS5
         </div>
         <div className={styles.formContainer}>
           <form className={styles.form}>
