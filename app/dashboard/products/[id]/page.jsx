@@ -1,43 +1,58 @@
 import styles from "@/app/ui/dashboard/products/singleProduct/singleProduct.module.css";
 import Image from "next/image";
+import { fetchProduct } from "@/app/lib/data";
+import { updateProduct } from "@/app/lib/actions";
 
-const SingleUserPage = () => {
-    return (
-        <div className={styles.container}>
-        <div className={styles.infoContainer}>
-          <div className={styles.imgContainer}>
-            <Image src="/noavatar.png" alt="" fill />
-          </div>
-          PS5
+const SingleUserPage = async ({ params }) => {
+  const { id } = params;
+  const product = await fetchProduct(id);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.infoContainer}>
+        <div className={styles.imgContainer}>
+          <Image src="/noavatar.png" alt="" fill />
         </div>
-        <div className={styles.formContainer}>
-          <form className={styles.form}>
-            {/* <input type="hidden" name="id" value={user.id}/> */}
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Beka Mereabshvili" />
-            <label>Email</label>
-            <input type="email" name="email" placeholder="beqamerebashvili26@gmail.com" />
-            <label>Password</label>
-            <input type="password" name="password" />
-            <label>Phone</label>
-            <input type="text" name="phone" placeholder="+995597336006" />
-            <label>Address</label>
-            <textarea type="text" name="address" placeholder="Tbilisi" />
-            <label>Is Admin?</label>
-            <select name="isAdmin" id="isAdmin">
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </select>
-            <label>Is Active?</label>
-            <select name="isActive" id="isActive">
-              <option value={true}>Yes</option>
-              <option value={false}>No</option>
-            </select>
-            <button>Update</button>
-          </form>
-        </div>
+        {product.title}
       </div>
-    )
+      <div className={styles.formContainer}>
+        <form action={updateProduct} className={styles.form}>
+          <input type="hidden" name="id" value={product.id} />
+          <label>Title</label>
+          <input type="text" name="title" placeholder={product.title} />
+          <label>Price</label>
+          <input type="number" name="price" placeholder={product.price} />
+          <label>Stock</label>
+          <input type="number" name="stock" placeholder={product.stock} />
+          <label>Color</label>
+          <input
+            type="text"
+            name="color"
+            placeholder={product.color || "color"}
+          />
+          <label>Size</label>
+          <textarea
+            type="text"
+            name="size"
+            placeholder={product.size || "size"}
+          />
+          <label>Cat</label>
+          <select name="cat" id="cat">
+            <option value="kitchen">Kitchen</option>
+            <option value="computers">Computers</option>
+          </select>
+          <label>Description</label>
+          <textarea
+            name="desc"
+            id="desc"
+            rows="10"
+            placeholder={product.desc}
+          ></textarea>
+          <button>Update</button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default SingleUserPage
