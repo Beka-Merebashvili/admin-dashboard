@@ -69,20 +69,6 @@ export const updateUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
-export const deleteUser = async (formData) => {
-  const { id } = Object.fromEntries(formData);
-
-  try {
-    connectToDb();
-    await User.findByIdAndDelete(id);
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to delete user!");
-  }
-
-  revalidatePath("/dashboard/products");
-};
-
 export const addProduct = async (formData) => {
   const { title, desc, price, stock, color, size } =
     Object.fromEntries(formData);
@@ -140,6 +126,19 @@ export const updateProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
+export const deleteUser = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDb();
+    await User.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete user!");
+  }
+
+  revalidatePath("/dashboard/products");
+};
 
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
@@ -154,7 +153,6 @@ export const deleteProduct = async (formData) => {
 
   revalidatePath("/dashboard/products");
 };
-
 
 export const authenticate = async (_prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
