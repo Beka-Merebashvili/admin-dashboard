@@ -5,7 +5,7 @@ import { User, Product } from "./models";
 import { connectToDb } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
-import { signIn } from "../auth";
+import { signIn} from "../auth";
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -156,7 +156,7 @@ export const deleteProduct = async (formData) => {
 };
 
 
-export const authenticate = async (prevState, formData) => {
+export const authenticate = async (_prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
